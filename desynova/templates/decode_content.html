@@ -1,0 +1,44 @@
+<html lang="en" ng-app="desynovaApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/angular-ui-notification.min.css" rel="stylesheet">
+</head>
+
+<body ng-controller="desynovaCtrl">
+    <input type="hidden" id="share_url_id" class="form-control" value="{{share_url_id}}">
+    {% verbatim %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row well">
+            <div class="col-md-6 col-sm-6 col-lg-6">
+                <div class="row">
+                    <input type="text" name="" class="form-control" ng-model="pasteLockly.secret_key" placeholder="Secret Key">
+                    <br>
+                    <button class="btn btn-primary" ng-click="getPasteLockelyContent()">Submit</button>
+                </div>
+            </div>
+        </div>
+                <div class="row">
+                    <div>{{content}}</div>
+                </div>
+    </div>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/angular.min.js"></script>
+    <script src="/static/js/angular-ui-notification.min.js"></script>
+    <script src="/static/js/loading-bar.min.js"></script>
+    <script src="/static/js/desynovaPasteLockely.js"></script>
+</body>
+{% endverbatim %}
+
+</html>
