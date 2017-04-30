@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 import random, string
 from models import *
 from desynova.settings import LIVE_URL
-from Crypto.Cipher import AES
+from Crypto.Cipher import XOR
 import base64
 import requests
 
@@ -40,22 +40,24 @@ def redirect_url(request, short_url_id=None):
 	print short_url_id, short_url_obj.original_url
 	return HttpResponseRedirect(short_url_obj.original_url)
 
+def encrypt(key, plaintext):
+  cipher = XOR.new(key)
+  return base64.b64encode(cipher.encrypt(plaintext))
+
+def decrypt(key, ciphertext):
+  cipher = XOR.new(key)
+  return cipher.decrypt(base64.b64decode(ciphertext))
+
 def paste_lockly(request, short_url_id=None):
 	if request.method == "POST":
 		params = json.loads(request.body)
-		if len(params.get('secret_key')) not in [16,24,32]:
-			return JsonResponse({
-				"message": "Secret key length should be 16,24,32",
-				"status": True
-			})
 		x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(5))
 		params['short_url_string'] = x
-		cipher = AES.new(params.get('secret_key'),AES.MODE_ECB)
-		params['content'] = base64.b64encode(cipher.encrypt(params.get('content').rjust(32)))
+		params['content'] = encrypt(params.get('secret_key'), params.get('content'))
 		PasteLockly.objects.create(**params)
 		return JsonResponse({
 			"message": "Content save successfully",
-			"status": False
+			"status": True
 		})
 	elif request.method == "GET":
 		return JsonResponse({
@@ -74,10 +76,8 @@ def get_decode_content(request):
 			"message": "Invalid secret key",
 			"status": False
 		})
-	cipher = AES.new(params.get('secret_key'),AES.MODE_ECB)
-	content = cipher.decrypt(base64.b64decode(paste_lockly.content))
 	return JsonResponse({
-		"content": content,
+		"content": decrypt(params.get('secret_key'), paste_lockly.content),
 		"status": True
 	})
 
