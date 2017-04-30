@@ -19,9 +19,10 @@
     </nav>
     <div class="container-fluid">
         <div class="row well">
+        <h3 style="margin:0px 5px 5px 0px;">Shortly</h3>
             <div class="col-md-6 col-sm-6 col-lg-6">
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="i in shortUrlList" style="padding: 5px;"><a href="short_url/{{i.short_url_id}}">{{i.display_short_url}}</a></li>
+                    <li class="list-group-item" ng-repeat="i in shortUrlList" style="padding: 5px;"><a target="_blank" href="short_url/{{i.short_url_id}}">{{i.display_short_url}}</a></li>
                 </ul>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6">
@@ -36,6 +37,7 @@
             </div>
         </div>
         <div class="row well">
+            <h3 style="margin:0px 5px 5px 0px;">PasteLockly</h3>
             <div class="col-md-6 col-sm-6 col-lg-6">
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="i in shareUrlList" style="padding: 5px;">Url--> <a href="paste_lockly/{{i.share_url_id}}" target="_blank">{{i.display_share_url}}</a> <br>Secret Key--> {{i.secret_key}}</li>
@@ -52,9 +54,11 @@
             </div>
         </div>
         <div class="row well">
+          <h3 style="margin:0px 5px 5px 0px;">Web Scrapper</h3>
             <div class="col-md-12 col-sm-12 col-lg-12">
-                <table class="table">
+                <table class="table table-bordered">
                 <tr>
+                  <th>#</th>
                   <th>Symbol</th>
                   <th>LTP</th>
                   <th>%Change</th>
@@ -64,10 +68,11 @@
                   <th>High</th>
                   <th>Low</th>
                   <th>Prev.Close</th>
-                  <th>Latest Ex Date</th>
+                  <th>LatestEx Date</th>
                   <th>CA</th>
                 </tr>
                 <tr ng-repeat="i in niftyGainers">
+                  <td>{{$index+1}}</td>
                   <td>{{i.symbol}}</td>
                   <td>{{i.ltp}}</td>
                   <td>{{i.netPrice}}</td>
