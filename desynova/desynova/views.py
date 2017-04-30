@@ -11,7 +11,7 @@ import requests
 
 
 def landing_page(request):
-    return render(request, "landing_page.html")
+    return render(request, "templates/landing_page.html")
 
 def short_url(request):
 	if request.method == "POST":
@@ -64,7 +64,7 @@ def paste_lockly(request, short_url_id=None):
 		})
 
 def decode_content(request, share_url_id=None):
-    return render_to_response("decode_content.html", {"share_url_id": share_url_id})
+    return render_to_response("templates/decode_content.html", {"share_url_id": share_url_id})
 
 def get_decode_content(request):
 	params = json.loads(request.body)
